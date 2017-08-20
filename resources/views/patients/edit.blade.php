@@ -2,10 +2,10 @@
 
 @section('content')
     <div class="row wrapper border-bottom white-bg page-heading">
-        <div class="col-sm-4">
+        <div class="col-sm-4 col-xs-6">
             <h2>Ver Pacientes</h2>
         </div>
-        <div class="col-sm-8">
+        <div class="col-sm-8 col-xs-6">
             <div class="title-action">
                 <form id="deleteForm" action="{{ route('patient.destroy', $patient) }}" method="post">
                     {{ method_field('DELETE') }}
@@ -39,6 +39,11 @@
                         {{ csrf_field() }}
                         <div class="ibox-title">
                             <h5>Datos del paciente</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                            </div>
                         </div>
                         <div class="ibox-content">
                             @include('patients.partials.formDatos')
@@ -76,12 +81,12 @@
 
 @section('scripts')
     <script src="{{ asset('js/plugins/chartJs/Chart.min.js') }}"></script>
-
     <script>
         $("#deletePatient").click(function(){
-            if(confirm('Esta seguro que desea borrar al paciente?')) {
+            if (confirm('Esta seguro que desea borrar al paciente?')) {
                 $("#deleteForm").submit();
             }
+            return false
         });
     </script>
 @endsection
