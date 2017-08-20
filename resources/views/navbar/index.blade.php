@@ -10,13 +10,12 @@
         </div>
         <ul class="nav navbar-top-links navbar-right">
             <li>
-                <span class="m-r-sm text-muted welcome-message">Bienvenido a Cosmaker</span>
+                <span class="m-r-sm text-muted welcome-message">Bienvenido al sistema</span>
             </li>
 
             <li>
-                <a href="{{ url('/logout') }}">
-                    <i class="fa fa-sign-out"></i> Salir
-                </a>
+                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fa fa-sign-out"></i> Salir</a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">{{ csrf_field() }}</form>
             </li>
         </ul>
     </nav>

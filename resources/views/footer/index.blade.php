@@ -1,8 +1,8 @@
 <div class="footer">
     <div class="pull-right">
-        fsdfsdfsdfs
+        Total Pacientes: {{ count(\App\patient::where('visible','=',true)->get()) }}
     </div>
     <div>
-        <strong>Copyright</strong> Zangles ( Zaphir Sky )
+        <strong>Copyright</strong> Zangles
     </div>
 </div>
