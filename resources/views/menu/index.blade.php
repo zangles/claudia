@@ -7,8 +7,8 @@
             <li>
                 <a href="#"><i class="fa fa-shield"></i> <span class="nav-label">Dashboard</span></a>
             </li>
-            <li class="active">
-                <a href="{{ url('/admin/cosplay') }}"><i class="fa fa-users"></i> <span class="nav-label">Cosplays</span></a>
+            <li class="{{ Request::is('patient') ? 'active' : '' }}">
+                <a href="{{ route('patient.index')}}"><i class="fa fa-users"></i> <span class="nav-label">Pacientes</span></a>
             </li>
         </ul>
     </div>
