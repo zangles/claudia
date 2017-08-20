@@ -1,6 +1,11 @@
 <div class="ibox float-e-margins">
     <div class="ibox-title">
         <h5>Grafico evolucion peso</h5>
+        <div class="ibox-tools">
+            <a class="collapse-link">
+                <i class="fa fa-chevron-up"></i>
+            </a>
+        </div>
     </div>
     <div class="ibox-content">
         <div style="width:100%;">
@@ -11,6 +16,7 @@
 
 @section('scripts')
     @parent
+    <script src="{{ asset('js/plugins/jquery-ui/jquery-ui.js') }}"></script>
     <script>
         var wHistory = JSON.parse('{!! $weightHistory  !!}');
 
@@ -19,7 +25,7 @@
         var minW = 9999;
         var maxW = 0;
         $.each(wHistory, function (k, v) {
-            chartDates.push(v.updated_at);
+            chartDates.push($.datepicker.formatDate( "dd/mm/yy", new Date(v.updated_at) ));
             chartValues.push(v.value);
             if (v.value > maxW) {
                 maxW = v.value;
@@ -43,7 +49,6 @@
                 }
             ]
         };
-
 
         var lineOptions = {
             responsive: true,

@@ -2,10 +2,10 @@
 
 @section('content')
     <div class="row wrapper border-bottom white-bg page-heading">
-        <div class="col-sm-4">
+        <div class="col-sm-4 col-xs-6">
             <h2>Nuevo Pacientes</h2>
         </div>
-        <div class="col-sm-8">
+        <div class="col-sm-8 col-xs-6">
             <div class="title-action">
             </div>
         </div>

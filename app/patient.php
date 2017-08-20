@@ -47,23 +47,23 @@ class patient extends Model
             $text = "Infra Peso";
         }
 
-        if ($imc > 18.50 and $imc < 24.99) {
+        if ($imc >= 18.50 and $imc < 24.99) {
             $text = "Peso Normal";
         }
 
-        if ($imc > 25 and $imc < 29.99) {
+        if ($imc >= 25 and $imc < 29.99) {
             $text = "Sobre Peso";
         }
 
-        if ($imc > 30 and $imc < 34.99) {
+        if ($imc >= 30 and $imc < 34.99) {
             $text = "Obesidad Leve";
         }
 
-        if ($imc > 35 and $imc < 39.99) {
+        if ($imc >= 35 and $imc < 39.99) {
             $text = "Obesidad Media";
         }
 
-        if ($imc > 40) {
+        if ($imc >= 40) {
             $text = "Obesidad Morbida";
         }
 

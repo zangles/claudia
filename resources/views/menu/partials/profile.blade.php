@@ -9,5 +9,5 @@
     </ul>
 </div>
 <div class="logo-element">
-    [PROS]
+
 </div>
