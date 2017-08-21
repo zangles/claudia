@@ -15,7 +15,7 @@ class PatientController extends Controller
      */
     public function index()
     {
-        $patients = patient::where('visible', true)->orderBy('name', 'desc')->get();
+        $patients = patient::where('visible', true)->orderByRaw('UPPER(name) asc')->get();
 
         return view('patients.index', compact('patients'));
     }
