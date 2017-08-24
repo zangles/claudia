@@ -21,12 +21,12 @@
                             <h5>Datos del paciente</h5>
                         </div>
                         <div class="ibox-content">
-                            {!! Field::text('name', ['label' => 'Nombre']) !!}
-                            {!! Field::text('age', ['label' => 'Edad']) !!}
-                            {!! Field::text('phone', ['label' => 'Telefono']) !!}
-                            {!! Field::text('email', ['label' => 'Email']) !!}
-                            {!! Field::text('weight', ['label' => 'Peso'],['inputGroup' => 'Kg']) !!}
-                            {!! Field::text('height', ['label' => 'Altura'],['inputGroup' => 'cm']) !!}
+                            {!! Field::text('name'  , ['label' => 'Nombre']) !!}
+                            {!! Field::text('age'   , ['label' => 'Edad']) !!}
+                            {!! Field::text('phone' , ['label' => 'Telefono']) !!}
+                            {!! Field::text('email' , ['label' => 'Email']) !!}
+                            {!! Field::text('weight', ['label' => 'Peso']   , ['inputGroup' => 'Kg']) !!}
+                            {!! Field::text('height', ['label' => 'Altura'] , ['inputGroup' => 'cm']) !!}
                         </div>
                         <div class="ibox-footer">
                             <div class="row">

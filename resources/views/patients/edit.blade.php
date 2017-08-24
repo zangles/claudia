@@ -18,19 +18,6 @@
 
     <div class="wrapper wrapper-content">
         @include('common.statusMessage')
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
-            <div class="row">
-
-            </div>
         <div class="row">
             <div class="col-md-4">
                 <div class="ibox float-e-margins">
