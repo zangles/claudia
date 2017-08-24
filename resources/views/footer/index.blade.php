@@ -3,6 +3,6 @@
         Total Pacientes: {{ count(\App\patient::where('visible','=',true)->get()) }}
     </div>
     <div>
-        <strong>Copyright</strong> Zangles
+        <strong>Copyright Zangles</strong> v {{ env('APP_VERSION') }}
     </div>
 </div>
