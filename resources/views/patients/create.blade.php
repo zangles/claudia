@@ -25,8 +25,8 @@
                             {!! Field::text('age'   , ['label' => 'Edad']) !!}
                             {!! Field::text('phone' , ['label' => 'Telefono']) !!}
                             {!! Field::text('email' , ['label' => 'Email']) !!}
-                            {!! Field::text('weight', ['label' => 'Peso']   , ['inputGroup' => 'Kg']) !!}
-                            {!! Field::text('height', ['label' => 'Altura'] , ['inputGroup' => 'cm']) !!}
+                            {!! Field::text('weight', ['label' => 'Peso']   , ['inputGroupText' => 'Kg']) !!}
+                            {!! Field::text('height', ['label' => 'Altura'] , ['inputGroupText' => 'cm']) !!}
                         </div>
                         <div class="ibox-footer">
                             <div class="row">

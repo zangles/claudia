@@ -17,6 +17,7 @@ class CreateTurnsTable extends Migration
             $table->increments('id');
             $table->date('date');
             $table->unsignedInteger('patient_id');
+            $table->text('comments');
             $table->timestamps();
         });
     }

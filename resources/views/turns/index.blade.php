@@ -7,7 +7,7 @@
         </div>
         <div class="col-sm-8 col-xs-6">
             <div class="title-action">
-                <a href="{{ route('patient.create') }}" class="btn btn-primary">Nuevo Turno</a>
+                <a data-toggle="modal" data-target="#newTurn" class="btn btn-primary">Nuevo Turno</a>
             </div>
         </div>
     </div>
@@ -37,76 +37,84 @@
         </div>
     </div>
 
-    <div class="modal inmodal" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content animated bounceInDown">
-                <div class="modal-header">
-                    <h4 class="modal-title">Nuevo Turno</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-5">
-                            <div class="ibox float-e-margins">
-                                <div class="ibox-title">
-                                    <h5>Pacientes </h5>
-                                </div>
-                                <div class="ibox-content" style="max-height: 400px; overflow-y: auto">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" name="search" id="search" placeholder="Buscar">
+
+        <div class="modal inmodal" id="newTurn" tabindex="-1" role="dialog" aria-hidden="true">
+            <form action="{{ route('turns.store') }}" method="POST">
+                {{ csrf_field() }}
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content animated bounceInDown">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Nuevo Turno</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="ibox float-e-margins">
+                                        <div class="ibox-title">
+                                            <h5>Pacientes </h5>
+                                        </div>
+                                        <div class="ibox-content" style="max-height: 432px; overflow-y: auto">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" name="search" id="search" placeholder="Buscar">
+                                            </div>
+                                            <div class="list-group">
+                                                @foreach($patients as $patient)
+                                                    <a href="#" class="list-group-item list-patients" data-id="{{ $patient->id }}" data-name="{{ strtoupper($patient->name) }}">{{ $patient->name }}</a>
+                                                @endforeach
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="list-group">
-                                        @foreach($patients as $patient)
-                                            <a href="#" class="list-group-item list-patients" data-id="{{ $patient->id }}" data-name="{{ strtoupper($patient->name) }}">{{ $patient->name }}</a>
-                                            <a href="#" class="list-group-item list-patients" data-id="{{ $patient->id }}" data-name="{{ strtoupper($patient->name) }}">{{ $patient->name }}</a>
-                                            <a href="#" class="list-group-item list-patients" data-id="{{ $patient->id }}" data-name="{{ strtoupper($patient->name) }}">{{ $patient->name }}</a>
-                                            <a href="#" class="list-group-item list-patients" data-id="{{ $patient->id }}" data-name="{{ strtoupper($patient->name) }}">{{ $patient->name }}</a>
-                                            <a href="#" class="list-group-item list-patients" data-id="{{ $patient->id }}" data-name="{{ strtoupper($patient->name) }}">{{ $patient->name }}</a>
-                                            <a href="#" class="list-group-item list-patients" data-id="{{ $patient->id }}" data-name="{{ strtoupper($patient->name) }}">{{ $patient->name }}</a>
-                                            <a href="#" class="list-group-item list-patients" data-id="{{ $patient->id }}" data-name="{{ strtoupper($patient->name) }}">{{ $patient->name }}</a>
-                                            <a href="#" class="list-group-item list-patients" data-id="{{ $patient->id }}" data-name="{{ strtoupper($patient->name) }}">{{ $patient->name }}</a>
-                                            <a href="#" class="list-group-item list-patients" data-id="{{ $patient->id }}" data-name="{{ strtoupper($patient->name) }}">{{ $patient->name }}</a>
-                                        @endforeach
+                                </div>
+
+                                <div class="col-md-7">
+                                    <div class="ibox float-e-margins">
+                                        <div class="ibox-title">
+                                            <h5>Datos Turno </h5>
+                                        </div>
+                                        <div class="ibox-content" style="max-height: 450px; overflow-y: auto">
+                                            <div class="form-group">
+                                                {!! Field::text('paciente','', ['disabled'=>'disabled'], ['basicForm'=>'']) !!}
+                                                <input type="hidden" name="patientId" id="patientId">
+                                                {!! Field::text('turnDate', '', ['label' => 'Fecha'],['basicForm'=>'','inputGroupIcon'=>'calendar']) !!}
+                                                {!! Field::textarea('comentarios', '', ['label' => 'Comentarios'],['basicForm'=>'']) !!}
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-1">
-                        </div>
-                        <div class="col-md-6">
-                            <div class="ibox float-e-margins">
-                                <div class="ibox-title">
-                                    <h5>Datos Turno </h5>
-                                </div>
-                                <div class="ibox-content" style="max-height: 400px; overflow-y: auto">
-                                    <div class="form-group">
-                                        {!! Field::text('turnDate', '', ['label' => 'Fecha'],['basicForm'=>'']) !!}
-                                        {!! Field::textarea('comentarios', '', ['label' => 'Comentarios'],['basicForm'=>'']) !!}
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Guardar Turno</button>
+                            <button type="button" class="btn btn-white" data-dismiss="modal">Cerrar</button>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Guardar Turno</button>
-                    <button type="button" class="btn btn-white" data-dismiss="modal">Cerrar</button>
-                </div>
-            </div>
+            </form>
         </div>
-    </div>
+
 @endsection
 
 @section('style')
     <link rel="stylesheet" href="{{ asset('/css/plugins/fullcalendar/fullcalendar.css') }}">
+    <link rel="stylesheet" href="{{ asset('/css/plugins/datapicker/bootstrap-datepicker3.css') }}">
 @endsection
 
 @section('scripts')
     <script src="{{ asset('/js/plugins/fullcalendar/moment.min.js') }}"></script>
     <script src="{{ asset('/js/jquery-ui.custom.min.js') }}"></script>
     <script src="{{ asset('/js/plugins/fullcalendar/fullcalendar.min.js') }}"></script>
+    <script src="{{ asset('/js/plugins/datapicker/bootstrap-datepicker.js') }}"></script>
 
     <script>
         $(document).ready(function() {
+
+            $('#turnDate').datepicker({
+                todayHighlight: true,
+                forceParse: false,
+                autoclose: true,
+                format: 'dd/mm/yyyy'
+            });
+
 
             /* initialize the external events
              -----------------------------------------------------------------*/
@@ -207,8 +215,6 @@
 //                    }
                 ],
             });
-
-
         });
 
         $("#search").keyup(function(){
@@ -228,12 +234,20 @@
             }
         };
 
+        $(".list-patients").click(function(){
+            $('#paciente').val($(this).html());
+            $('#patientId').val($(this).data('id'));
+        });
+
         function newTurnModal(date) {
             $("#turnDate").val(date.format('DD/MM/YYYY hh:mm:ss'));
             $('#myModal').modal({
                 show: 'false'
             });
         }
+
+
+
 
 
     </script>

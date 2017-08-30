@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\patient;
 use App\Turn;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class TurnController extends Controller
@@ -38,7 +39,19 @@ class TurnController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $patientId = $request->input('patientId');
+        $turnDate = $request->input('turnDate');
+        $comments = $request->input('comentarios');
+
+        $patient = patient::findOrFail($patientId);
+
+        $turn = new Turn();
+        $turn->date = Carbon::createFromFormat('d/m/Y', $turnDate);
+        $turn->comments = $comments;
+        $turn->patient()->associate($patient);
+        $turn->save();
+
+
     }
 
     /**
