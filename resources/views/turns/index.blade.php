@@ -15,16 +15,6 @@
     <div class="wrapper wrapper-content">
         {!! Alert::render() !!}
         <div class="row animated fadeInDown">
-            <div class="col-lg-9">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>Turnos </h5>
-                    </div>
-                    <div class="ibox-content">
-                        <div id="calendar"></div>
-                    </div>
-                </div>
-            </div>
             <div class="col-lg-3">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
@@ -45,6 +35,16 @@
                                 </li>
                             @endforeach
                         </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Turnos </h5>
+                    </div>
+                    <div class="ibox-content">
+                        <div id="calendar"></div>
                     </div>
                 </div>
             </div>
