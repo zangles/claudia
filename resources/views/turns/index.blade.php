@@ -201,7 +201,7 @@
                         newTurnModal(date);
                     }
                 },
-                timeFormat: 'H(:mm)',
+                timeFormat: 'H:mm',
                 events: [
                     @foreach($turns as $turn)
                     {
