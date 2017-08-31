@@ -15,7 +15,7 @@ class CreateTurnsTable extends Migration
     {
         Schema::create('turns', function (Blueprint $table) {
             $table->increments('id');
-            $table->date('date');
+            $table->dateTime('date');
             $table->unsignedInteger('patient_id');
             $table->text('comments');
             $table->timestamps();

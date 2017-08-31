@@ -13,6 +13,7 @@
     </div>
 
     <div class="wrapper wrapper-content">
+        {!! Alert::render() !!}
         <div class="row animated fadeInDown">
             <div class="col-lg-9">
                 <div class="ibox float-e-margins">
@@ -30,13 +31,25 @@
                         <h5>Turnos del dia</h5>
                     </div>
                     <div class="ibox-content">
-
+                        <ul class="list-group">
+                            @foreach($todayTurns as $turn)
+                                <li class="list-group-item">
+                                        <span class="label label-primary">
+                                            {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $turn->date)->format('H:i')  }} hs
+                                        </span>
+                                    <span class="pull-right">
+                                        <a href="{{ route('patient.edit', $turn->patient()->get()[0]->id ) }}">
+                                            {{ $turn->patient()->get()[0]->name }}
+                                        </a>
+                                    </span>
+                                </li>
+                            @endforeach
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 
         <div class="modal inmodal" id="newTurn" tabindex="-1" role="dialog" aria-hidden="true">
             <form action="{{ route('turns.store') }}" method="POST">
@@ -75,7 +88,16 @@
                                             <div class="form-group">
                                                 {!! Field::text('paciente','', ['disabled'=>'disabled'], ['basicForm'=>'']) !!}
                                                 <input type="hidden" name="patientId" id="patientId">
-                                                {!! Field::text('turnDate', '', ['label' => 'Fecha'],['basicForm'=>'','inputGroupIcon'=>'calendar']) !!}
+                                                <div class="form-group">
+                                                    <div class='input-group date'>
+                                                        <input type='text' class="form-control" name="turnDate" id='turnDate' />
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-danger" id="deleteTurnDate" type="button">
+                                                                <i class="fa fa-trash"></i>
+                                                            </button>
+                                                        </span>
+                                                    </div>
+                                                </div>
                                                 {!! Field::textarea('comentarios', '', ['label' => 'Comentarios'],['basicForm'=>'']) !!}
                                             </div>
                                         </div>
@@ -91,30 +113,32 @@
                 </div>
             </form>
         </div>
-
 @endsection
 
 @section('style')
     <link rel="stylesheet" href="{{ asset('/css/plugins/fullcalendar/fullcalendar.css') }}">
-    <link rel="stylesheet" href="{{ asset('/css/plugins/datapicker/bootstrap-datepicker3.css') }}">
+    <link rel="stylesheet" href="{{ asset('/css/plugins/datetimepicker/bootstrap-datetimepicker.min.css') }}">
 @endsection
 
 @section('scripts')
     <script src="{{ asset('/js/plugins/fullcalendar/moment.min.js') }}"></script>
     <script src="{{ asset('/js/jquery-ui.custom.min.js') }}"></script>
     <script src="{{ asset('/js/plugins/fullcalendar/fullcalendar.min.js') }}"></script>
-    <script src="{{ asset('/js/plugins/datapicker/bootstrap-datepicker.js') }}"></script>
+    <script src="{{ asset('/js/plugins/datetimepicker/bootstrap-datetimepicker.min.js') }}"></script>
 
     <script>
+        var turns = JSON.parse('{!! $turns->toJson()  !!}');
+
         $(document).ready(function() {
 
-            $('#turnDate').datepicker({
-                todayHighlight: true,
-                forceParse: false,
-                autoclose: true,
-                format: 'dd/mm/yyyy'
+            $('#turnDate').datetimepicker({
+                format: 'DD/MM/YYYY HH:mm:00',
+                sideBySide: true
             });
 
+            $('#deleteTurnDate').click(function(){
+                $('#turnDate').val('');
+            });
 
             /* initialize the external events
              -----------------------------------------------------------------*/
@@ -144,12 +168,21 @@
             var m = date.getMonth();
             var y = date.getFullYear();
 
+
+
             $('#calendar').fullCalendar({
                 height: 550,
                 header: {
                     left: 'prev,next today',
                     center: 'title',
                     right: 'month,agendaWeek,agendaDay'
+                },
+                eventRender: function (event, element) {
+                    var tooltip = event.Description;
+                    $(element).attr("data-toggle", 'tooltip');
+                    $(element).attr("data-placement", 'top');
+                    $(element).attr("title", getEventComment(event.id));
+                    $(element).tooltip({ container: "body"});
                 },
                 editable: true,
                 droppable: true, // this allows things to be dropped onto the calendar
@@ -168,51 +201,17 @@
                         newTurnModal(date);
                     }
                 },
+                timeFormat: 'H(:mm)',
                 events: [
-//                    {
-//                        title: 'All Day Event',
-//                        start: new Date(y, m, 1)
-//                    },
-//                    {
-//                        title: 'Long Event',
-//                        start: new Date(y, m, d-5),
-//                        end: new Date(y, m, d-2),
-//                    },
-//                    {
-//                        id: 999,
-//                        title: 'Repeating Event',
-//                        start: new Date(y, m, d-3, 16, 0),
-//                        allDay: false,
-//                    },
-//                    {
-//                        id: 999,
-//                        title: 'Repeating Event',
-//                        start: new Date(y, m, d+4, 16, 0),
-//                        allDay: false
-//                    },
-//                    {
-//                        title: 'Meeting',
-//                        start: new Date(y, m, d, 10, 30),
-//                        allDay: false
-//                    },
-//                    {
-//                        title: 'Lunch',
-//                        start: new Date(y, m, d, 12, 0),
-//                        end: new Date(y, m, d, 14, 0),
-//                        allDay: false
-//                    },
-//                    {
-//                        title: 'Birthday Party',
-//                        start: new Date(y, m, d+1, 19, 0),
-//                        end: new Date(y, m, d+1, 22, 30),
-//                        allDay: false
-//                    },
-//                    {
-//                        title: 'Click for Google',
-//                        start: new Date(y, m, 28),
-//                        end: new Date(y, m, 29),
-//                        url: 'http://google.com/'
-//                    }
+                    @foreach($turns as $turn)
+                    {
+                        id: {{ $turn->id }},
+                        title: '{{ $turn->patient()->get()[0]->name }}',
+                        start: new Date('{{ $turn->date }}'),
+                        allDay: false,
+                        url: '{{ route('patient.edit',$turn->patient()->get()[0]) }}'
+                    },
+                    @endforeach
                 ],
             });
         });
@@ -246,7 +245,16 @@
             });
         }
 
+        function getEventComment(id) {
+            var comment;
+            $.each(turns, function(k,v) {
+                if (v.id === id){
+                    comment = v.comments;
+                }
+            });
 
+            return comment;
+        }
 
 
 

@@ -6,6 +6,7 @@ use App\patient;
 use App\Turn;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Styde\Html\Facades\Alert;
 
 class TurnController extends Controller
 {
@@ -17,8 +18,18 @@ class TurnController extends Controller
     public function index()
     {
         $turns = Turn::all();
+        $todayTurns = Turn::where(
+            'date',
+            '<=',
+            \Carbon\Carbon::today()->format('Y-m-d 23:59:59')
+        )->where(
+            'date',
+            '>=',
+            \Carbon\Carbon::today()->format('Y-m-d 00:00:00')
+        )->orderBy('date','asc')->get();
+
         $patients = patient::where('visible', true)->orderByRaw('UPPER(name) asc')->get();
-        return view('turns.index', compact('turns','patients'));
+        return view('turns.index', compact('turns','patients','todayTurns'));
     }
 
     /**
@@ -46,12 +57,14 @@ class TurnController extends Controller
         $patient = patient::findOrFail($patientId);
 
         $turn = new Turn();
-        $turn->date = Carbon::createFromFormat('d/m/Y', $turnDate);
+        $turn->date = Carbon::createFromFormat('d/m/Y H:i:s', $turnDate);
         $turn->comments = $comments;
         $turn->patient()->associate($patient);
         $turn->save();
 
+        Alert::success('Turno creado correctamente');
 
+        return redirect()->route('turns.index');
     }
 
     /**
