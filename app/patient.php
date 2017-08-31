@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\DB;
 class patient extends Model
 {
 
+    public function turns()
+    {
+        return $this->hasMany(Turn::class);
+    }
+
     public function measures()
     {
         return $this->hasMany(PatientMeasure::class);

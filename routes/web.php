@@ -25,3 +25,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::delete('patient/{patient}/measure', 'PatientController@measuresDestroy')->name('patient.measure.destroy');
 
 Route::resource('patient', 'PatientController');
+Route::resource('turns', 'TurnController');

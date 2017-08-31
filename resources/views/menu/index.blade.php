@@ -10,6 +10,9 @@
             <li class="{{ Request::is('patient') ? 'active' : '' }}">
                 <a href="{{ route('patient.index')}}"><i class="fa fa-users"></i> <span class="nav-label">Pacientes</span></a>
             </li>
+            <li class="{{ Request::is('turns') ? 'active' : '' }}">
+                <a href="{{ route('turns.index')}}"><i class="fa fa-calendar"></i> <span class="nav-label">Turnos</span></a>
+            </li>
         </ul>
     </div>
 </nav>
