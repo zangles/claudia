@@ -85,9 +85,10 @@ class PatientController extends Controller
     public function edit($id)
     {
         $patient = patient::findOrFail($id);
+        $patients = [$patient];
         $weightHistory = $patient->getWeights();
 
-        return view('patients.edit', compact('patient','weightHistory'));
+        return view('patients.edit', compact('patient','patients','weightHistory'));
     }
 
     /**

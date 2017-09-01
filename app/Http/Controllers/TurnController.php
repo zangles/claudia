@@ -98,7 +98,28 @@ class TurnController extends Controller
      */
     public function update(Request $request, Turn $turn)
     {
-        //
+        if ($request->ajax()) {
+            $turn->date = $request->input('turnNewDate');
+            $turn->save();
+            return response()->json(['success'=>'true']);
+        } else {
+            $turnDate = $request->input('turnDate');
+            $comments = $request->input('comentarios');
+
+            $turn->date = Carbon::createFromFormat('Y-m-d H:i:s', $turnDate);
+            $turn->comments = $comments;
+            $turn->save();
+            Alert::success('Turno modificado correctamente');
+        }
+    }
+
+    public function update2(Request $request)
+    {
+        $turnId = $request->input('turnId');
+        $turn = Turn::findOrFail($turnId);
+        $this->update($request, $turn );
+
+        return redirect()->back();
     }
 
     /**
@@ -110,5 +131,14 @@ class TurnController extends Controller
     public function destroy(Turn $turn)
     {
         //
+    }
+
+    /**
+     * @param Turn $turn
+     * @return \Illuminate\Http\Response
+     */
+    public function getTurn(Turn $turn)
+    {
+        return response()->json(['success'=>'true','data' => $turn->toJson() ]);
     }
 }

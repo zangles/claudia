@@ -26,3 +26,5 @@ Route::delete('patient/{patient}/measure', 'PatientController@measuresDestroy')-
 
 Route::resource('patient', 'PatientController');
 Route::resource('turns', 'TurnController');
+Route::post('/turns/get/{turn}', 'TurnController@getTurn')->name('turns.get');
+Route::post('/turns/update2', 'TurnController@update2')->name('turns.update2');

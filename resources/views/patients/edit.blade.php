@@ -58,8 +58,12 @@
                         @include('patients.partials.peso')
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        @include('turns.partials.calendar', ['turns' => $patient->turns()->get(), 'patientEdit'=>$patient])
+                    </div>
+                </div>
             </div>
-
         </div>
     </div>
 
